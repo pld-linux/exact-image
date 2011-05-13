@@ -37,7 +37,10 @@ alternative to ImageMagick.
 %patch0 -p1
 
 %build
-./configure --prefix=%{_prefix} --without-libpng
+./configure --prefix=%{_prefix} --without-libpng --without-php \
+%ifarch %{x8664}
+	--without-lua --without-perl --without-python
+%endif
 %{__make} \
 	CFLAGS="%{rpmcflags}" \
 	CXXFLAGS="%{rpmcflags}"
