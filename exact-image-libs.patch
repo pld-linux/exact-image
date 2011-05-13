@@ -1,0 +1,45 @@
+diff -ur -urp exact-image-0.8.5.orig/api/lua/Makefile exact-image-0.8.5/api/lua/Makefile
+--- exact-image-0.8.5.orig/api/lua/Makefile	2008-10-18 11:11:43.000000000 +0200
++++ exact-image-0.8.5/api/lua/Makefile	2011-05-14 00:01:05.000000000 +0200
+@@ -16,7 +16,7 @@ X_BUILD_IMPLICIT := 0
+ include build/bottom.make
+ X_BUILD_IMPLICIT := $(_X_BUILD_IMPLICIT)
+ 
+-api/lua/libdir := $(shell pkg-config lua --variable INSTALL_CMOD)
++api/lua/libdir := $(shell pkg-config lua51 --variable INSTALL_CMOD)
+ 
+ # install
+ all:: $($(X_MODULE)_BINARY)
+diff -ur -urp exact-image-0.8.5.orig/codecs/png.cc exact-image-0.8.5/codecs/png.cc
+--- exact-image-0.8.5.orig/codecs/png.cc	2010-03-03 22:04:44.000000000 +0100
++++ exact-image-0.8.5/codecs/png.cc	2011-05-14 00:28:20.000000000 +0200
+@@ -16,7 +16,7 @@
+  */
+ 
+ #include <stdlib.h>
+-#include <png.h>
++#include <libpng12/png.h>
+ 
+ #include <iostream>
+ 
+diff -ur -urp exact-image-0.8.5.orig/configure exact-image-0.8.5/configure
+--- exact-image-0.8.5.orig/configure	2010-11-21 11:01:04.000000000 +0100
++++ exact-image-0.8.5/configure	2011-05-14 00:22:45.000000000 +0200
+@@ -63,7 +63,7 @@ fi
+ 
+ pkgcheck libjpeg header LIBJPEG cc jconfig.h
+ pkgcheck libtiff header LIBTIFF c++ tiffconf.h tiffio.h tiffio.hxx
+-pkgcheck libpng pkg-config LIBPNG atleast 1.2
++pkgcheck libpng12 pkg-config LIBPNG atleast 1.2
+ pkgcheck libungif header LIBUNGIF c++ gif_lib.h
+ pkgcheck jasper header JASPER c++ jasper/jasper.h
+ if pkgcheck expat header EXPAT c++ expat.h; then # just for the SVG parser
+@@ -91,7 +91,7 @@ pkgcheck swig shell SWIG 'swig -version 
+ 
+ # supported swig target languages so far
+ 
+-pkgcheck lua pkg-config LUA atleast 5.1
++pkgcheck lua51 pkg-config LUA atleast 5.1
+ 
+ pkgcheck perl shell PERL 'perl -version 2>/dev/null | sed -n "s/This is perl.*v\([0-9.]*\).*built.*/\1/p"' atleast 5.8.0 &&
+ 	PERLINCS="`perl -MExtUtils::Embed -e ccopts`"
