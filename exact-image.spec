@@ -41,6 +41,7 @@ alternative to ImageMagick.
 %ifarch %{x8664}
 	--without-lua --without-perl --without-python
 %endif
+
 %{__make} \
 	CFLAGS="%{rpmcflags}" \
 	CXXFLAGS="%{rpmcflags}"
