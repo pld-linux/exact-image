@@ -1,7 +1,7 @@
 Summary:	A fast, modern and generic image processing library
 Name:		exact-image
 Version:	0.8.5
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/Graphics
 Source0:	http://dl.exactcode.de/oss/exact-image/%{name}-%{version}.tar.bz2
