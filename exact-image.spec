@@ -1,12 +1,13 @@
 Summary:	A fast, modern and generic image processing library
 Name:		exact-image
 Version:	0.8.5
-Release:	3
+Release:	4
 License:	GPL v2
 Group:		Applications/Graphics
 Source0:	http://dl.exactcode.de/oss/exact-image/%{name}-%{version}.tar.bz2
 # Source0-md5:	54c5dc9afd86ec573e7e2e9a80f45c71
 Patch0:		%{name}-libs.patch
+Patch1:		%{name}-gcc47.patch
 URL:		http://www.exactcode.de/site/open_source/exactimage/
 BuildRequires:	OpenEXR-devel >= 1.2.0
 BuildRequires:	agg-devel >= 2.3
@@ -35,6 +36,7 @@ alternative to ImageMagick.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 ./configure --prefix=%{_prefix} --without-libpng --without-php \

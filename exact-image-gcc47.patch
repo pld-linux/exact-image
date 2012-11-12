@@ -1,0 +1,10 @@
+--- exact-image-0.8.5/edisplay/edisplay.cc~	2010-10-18 17:33:02.000000000 +0200
++++ exact-image-0.8.5/edisplay/edisplay.cc	2012-11-13 00:05:37.644168959 +0100
+@@ -31,6 +31,7 @@
+ #include <algorithm>
+ #include <iostream>
+ #include <sstream>
++#include <unistd.h>
+ 
+ #include "ArgumentList.hh"
+ using namespace Utility;
