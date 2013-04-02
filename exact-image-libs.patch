@@ -28,7 +28,7 @@ diff -ur -urp exact-image-0.8.5.orig/configure exact-image-0.8.5/configure
 @@ -63,7 +63,7 @@ fi
  
  pkgcheck libjpeg header LIBJPEG cc jconfig.h
- pkgcheck libtiff header LIBTIFF c++ tiffconf.h tiffio.h tiffio.hxx
+ pkgcheck libtiff header LIBTIFF c++ tiffconf.h tiffio.h # tiffio.hxx
 -pkgcheck libpng pkg-config LIBPNG atleast 1.2
 +pkgcheck libpng12 pkg-config LIBPNG atleast 1.2
  pkgcheck libungif header LIBUNGIF c++ gif_lib.h
