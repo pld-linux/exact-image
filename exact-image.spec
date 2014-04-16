@@ -16,7 +16,7 @@ BuildRequires:	lcms-devel >= 1.10
 #BuildRequires:	libpng12-devel >= 1.2
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-cxx-devel
-BuildRequires:	libungif-devel
+BuildRequires:	giflib4-devel
 BuildRequires:	lua51-devel
 BuildRequires:	perl-devel >= 5.8.0
 BuildRequires:	php-devel >= 5.2.0
