@@ -43,3 +43,15 @@ diff -ur -urp exact-image-0.8.5.orig/configure exact-image-0.8.5/configure
  
  pkgcheck perl shell PERL 'perl -version 2>/dev/null | sed -n "s/This is perl.*v\([0-9.]*\).*built.*/\1/p"' atleast 5.8.0 &&
  	PERLINCS="`perl -MExtUtils::Embed -e ccopts`"
+diff -ur -x .svn -x .git -x .bzr -x CVS -urN exact-image-0.8.9/codecs/Makefile b/codecs/Makefile
+--- exact-image-0.8.9/codecs/Makefile	2011-06-30 23:23:25.000000000 +0200
++++ b/codecs/Makefile	2014-10-06 14:17:34.479107173 +0200
+@@ -13,7 +13,7 @@
+ endif
+ 
+ ifeq "$(WITHLIBPNG)" "1"
+-LDFLAGS += -lpng
++LDFLAGS += -lpng12
+ else
+ NOT_SRCS += png.cc
+ endif
