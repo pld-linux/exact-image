@@ -11,12 +11,12 @@ URL:		http://www.exactcode.de/site/open_source/exactimage/
 BuildRequires:	OpenEXR-devel >= 1.2.0
 BuildRequires:	agg-devel >= 2.3
 BuildRequires:	evas-devel >= 0.9.9
+#BuildRequires:	giflib4-devel
 BuildRequires:	jasper-devel
 BuildRequires:	lcms-devel >= 1.10
 #BuildRequires:	libpng12-devel >= 1.2
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-cxx-devel
-BuildRequires:	giflib4-devel
 BuildRequires:	lua51-devel
 BuildRequires:	perl-devel >= 5.8.0
 BuildRequires:	php-devel >= 5.2.0
@@ -37,7 +37,7 @@ alternative to ImageMagick.
 %patch0 -p1
 
 %build
-./configure --prefix=%{_prefix} --without-libpng --without-php \
+./configure --prefix=%{_prefix} --without-libungif --without-libpng --without-php \
 %ifarch %{x8664}
 	--without-lua --without-perl --without-python
 %endif
