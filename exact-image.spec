@@ -1,12 +1,13 @@
 Summary:	A fast, modern and generic image processing library
 Name:		exact-image
 Version:	0.8.9
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		Applications/Graphics
 Source0:	http://dl.exactcode.de/oss/exact-image/%{name}-%{version}.tar.bz2
 # Source0-md5:	a8694722cd7cc9aa9407950a8440f0cd
 Patch0:		%{name}-libs.patch
+Patch1:		exactimage_0.8.5-1.patch
 URL:		http://www.exactcode.de/site/open_source/exactimage/
 BuildRequires:	OpenEXR-devel >= 1.2.0
 BuildRequires:	agg-devel >= 2.3
@@ -14,7 +15,7 @@ BuildRequires:	evas-devel >= 0.9.9
 #BuildRequires:	giflib4-devel
 BuildRequires:	jasper-devel
 BuildRequires:	lcms-devel >= 1.10
-#BuildRequires:	libpng12-devel >= 1.2
+BuildRequires:	libpng-devel >= 1.5
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-cxx-devel
 BuildRequires:	lua51-devel
@@ -35,9 +36,10 @@ alternative to ImageMagick.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
-./configure --prefix=%{_prefix} --without-libungif --without-libpng --without-php \
+./configure --prefix=%{_prefix} --without-libungif --without-php \
 %ifarch %{x8664}
 	--without-lua --without-perl --without-python
 %endif
