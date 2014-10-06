@@ -13,7 +13,7 @@ BuildRequires:	agg-devel >= 2.3
 BuildRequires:	evas-devel >= 0.9.9
 BuildRequires:	jasper-devel
 BuildRequires:	lcms-devel >= 1.10
-BuildRequires:	libpng12-devel >= 1.2
+#BuildRequires:	libpng12-devel >= 1.2
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-cxx-devel
 BuildRequires:	giflib4-devel
@@ -37,7 +37,7 @@ alternative to ImageMagick.
 %patch0 -p1
 
 %build
-./configure --prefix=%{_prefix} --without-php \
+./configure --prefix=%{_prefix} --without-libpng --without-php \
 %ifarch %{x8664}
 	--without-lua --without-perl --without-python
 %endif
