@@ -24,6 +24,7 @@ Source0:	http://dl.exactcode.de/oss/exact-image/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-libs.patch
 Patch1:		exactimage_0.8.5-1.patch
 Patch2:		%{name}-giflib.patch
+Patch3:		%{name}-evas.patch
 URL:		http://www.exactcode.de/site/open_source/exactimage/
 BuildRequires:	OpenEXR-devel >= 1.2.0
 BuildRequires:	agg-devel >= 2.3
@@ -64,6 +65,7 @@ ImageMagick.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 ./configure \

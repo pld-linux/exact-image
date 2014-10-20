@@ -1,0 +1,24 @@
+As of Evas 1.8+ Evas and Evas_Object are both typedefs of Eo, so it
+cannot be the only difference when overloading methods.
+--- exact-image-0.8.9/gfx/X11Helper.cc.orig	2008-04-13 00:47:54.000000000 +0200
++++ exact-image-0.8.9/gfx/X11Helper.cc	2014-10-20 20:58:10.167286633 +0200
+@@ -124,7 +124,7 @@ Visual* X11Window::ColorVisual (Display*
+   return xgwa.visual;
+ }
+   
+-Evas_Object* X11Window::CaptureIntoEvasImage (Evas* evas,
++Evas_Object* X11Window::getCapturedEvasImage (Evas* evas,
+ 					      Display* dpy,
+ 					      Window window,
+ 					      int x, int y, int w, int h)
+--- exact-image-0.8.9/gfx/X11Helper.hh.orig	2006-03-04 19:38:53.000000000 +0100
++++ exact-image-0.8.9/gfx/X11Helper.hh	2014-10-20 20:58:02.583953614 +0200
+@@ -74,7 +74,7 @@ class X11Window
+   static int Depth (Display* dpy, Window window);
+   static Visual* ColorVisual (Display* dpy, Window window);
+ 
+-  static Evas_Object* CaptureIntoEvasImage (Evas* evas,
++  static Evas_Object* getCapturedEvasImage (Evas* evas,
+ 					    Display* dpy,
+ 					    Window window,
+ 					    int x, int y, int w, int h);
