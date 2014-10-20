@@ -1,7 +1,7 @@
 #
 # Conditional build:
 %bcond_without	evas	# Edisplay support
-%bcond_with	gif	# GIF support
+%bcond_without	gif	# GIF support
 %bcond_without	lua	# Lua API
 %bcond_without	perl	# Perl API
 %bcond_with	php	# PHP API
@@ -23,6 +23,7 @@ Source0:	http://dl.exactcode.de/oss/exact-image/%{name}-%{version}.tar.bz2
 # Source0-md5:	a8694722cd7cc9aa9407950a8440f0cd
 Patch0:		%{name}-libs.patch
 Patch1:		exactimage_0.8.5-1.patch
+Patch2:		%{name}-giflib.patch
 URL:		http://www.exactcode.de/site/open_source/exactimage/
 BuildRequires:	OpenEXR-devel >= 1.2.0
 BuildRequires:	agg-devel >= 2.3
@@ -30,7 +31,7 @@ BuildRequires:	agg-devel >= 2.3
 BuildRequires:	expat-devel
 # pkgconfig(freetype) >= 9.5.0
 BuildRequires:	freetype-devel >= 2.1.6
-%{?with_gif:BuildRequires:	giflib4-devel}
+%{?with_gif:BuildRequires:	giflib-devel >= 5}
 BuildRequires:	jasper-devel
 BuildRequires:	lcms-devel >= 1.10
 BuildRequires:	libjpeg-devel
@@ -62,6 +63,7 @@ ImageMagick.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 ./configure \
