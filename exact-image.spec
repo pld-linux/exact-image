@@ -1,11 +1,11 @@
-# TODO: php, ruby (when ready)
+# TODO: ruby (when ready)
 #
 # Conditional build:
 %bcond_without	evas	# Edisplay support
 %bcond_without	gif	# GIF support
 %bcond_without	lua	# Lua API
 %bcond_without	perl	# Perl API
-%bcond_with	php	# PHP API
+%bcond_without	php	# PHP API
 %bcond_without	python	# Python API
 %bcond_with	ruby	# Ruby API [not finished as of 0.8.9]
 
@@ -14,6 +14,8 @@
 %undefine	with_perl
 %undefine	with_python
 %endif
+%define		php_name	php%{?php_suffix}
+%include	/usr/lib/rpm/macros.perl
 Summary:	A fast, modern and generic image processing library
 Summary(pl.UTF-8):	Szybka, nowoczesna i ogólna biblioteka do przetwarzania obrazu
 Name:		exact-image
@@ -44,9 +46,11 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 %{?with_lua:BuildRequires:	lua51-devel >= 5.1}
 BuildRequires:	perl-devel >= 1:5.8.0
-%{?with_php:BuildRequires:	php-devel >= 5.2.0}
+%{?with_php:BuildRequires:	%{php_name}-devel >= 5.2.0}
 BuildRequires:	pkgconfig
 %{?with_python:BuildRequires:	python-devel >= 1:2.5.0}
+BuildRequires:	rpm-perlprov
+BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 %{?with_ruby:BuildRequires:	ruby-devel >= 1.8.5}
 %{?with_perl:BuildRequires:	swig-perl >= 1.3.32}
@@ -88,6 +92,18 @@ ExactImage API for Perl.
 %description -n perl-ExactImage -l pl.UTF-8
 API ExactImage dla Perla.
 
+%package -n %{php_name}-ExactImage
+Summary:	ExactImage API for PHP
+Summary(pl.UTF-8):	API ExactImage dla PHP
+Group:		Development/Languages/Perl
+%{?requires_php_extension}
+
+%description -n %{php_name}-ExactImage
+ExactImage API for PHP.
+
+%description -n %{php_name}-ExactImage -l pl.UTF-8
+API ExactImage dla PHP.
+
 %package -n python-ExactImage
 Summary:	ExactImage API for Python
 Summary(pl.UTF-8):	API ExactImage dla Pythona
@@ -118,6 +134,8 @@ API ExactImage dla Pythona.
 	%{!?with_python:--without-python}
 
 %{__make} \
+	CC="%{__cc}" \
+	CXX="%{__cxx}" \
 	CFLAGS="%{rpmcflags}" \
 	CXXFLAGS="%{rpmcflags}" \
 	Q=
@@ -165,6 +183,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{perl_vendorarch}/ExactImage.so
 %{perl_vendorarch}/ExactImage.pm
+%endif
+
+%if %{with php}
+%files -n %{php_name}-ExactImage
+%defattr(644,root,root,755)
+%attr(755,root,root) %{php_extensiondir}/ExactImage.so
+%{php_extensiondir}/ExactImage.php
 %endif
 
 %if %{with python}
