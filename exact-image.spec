@@ -1,3 +1,4 @@
+# TODO: php, ruby (when ready)
 #
 # Conditional build:
 %bcond_without	evas	# Edisplay support
@@ -6,6 +7,7 @@
 %bcond_without	perl	# Perl API
 %bcond_with	php	# PHP API
 %bcond_without	python	# Python API
+%bcond_with	ruby	# Ruby API [not finished as of 0.8.9]
 
 %ifarch %{x8664}
 %undefine	with_lua
@@ -25,6 +27,7 @@ Patch0:		%{name}-libs.patch
 Patch1:		exactimage_0.8.5-1.patch
 Patch2:		%{name}-giflib.patch
 Patch3:		%{name}-evas.patch
+Patch4:		%{name}-install.patch
 URL:		http://www.exactcode.de/site/open_source/exactimage/
 BuildRequires:	OpenEXR-devel >= 1.2.0
 BuildRequires:	agg-devel >= 2.3
@@ -42,8 +45,10 @@ BuildRequires:	libtiff-devel
 %{?with_lua:BuildRequires:	lua51-devel >= 5.1}
 BuildRequires:	perl-devel >= 1:5.8.0
 %{?with_php:BuildRequires:	php-devel >= 5.2.0}
+BuildRequires:	pkgconfig
 %{?with_python:BuildRequires:	python-devel >= 1:2.5.0}
-BuildRequires:	ruby-devel >= 1.8.5
+BuildRequires:	rpmbuild(macros) >= 1.219
+%{?with_ruby:BuildRequires:	ruby-devel >= 1.8.5}
 %{?with_perl:BuildRequires:	swig-perl >= 1.3.32}
 %{?with_php:BuildRequires:	swig-php >= 1.3.32}
 %{?with_python:BuildRequires:	swig-python >= 1.3.32}
@@ -60,12 +65,47 @@ Szybka, nowoczesna i ogólna (oparta na szablonach) biblioteka C++
 do przetwarzania obrazu, będąca alternatywą dla biblioteki
 ImageMagick.
 
+%package -n lua-ExactImage
+Summary:	ExactImage API for Lua language
+Summary(pl.UTF-8):	API ExactImage dla języka Lua
+Group:		Development/Languages
+Requires:	lua51
+
+%description -n lua-ExactImage
+ExactImage API for Lua language.
+
+%description -n lua-ExactImage -l pl.UTF-8
+API ExactImage dla języka Lua.
+
+%package -n perl-ExactImage
+Summary:	ExactImage API for Perl
+Summary(pl.UTF-8):	API ExactImage dla Perla
+Group:		Development/Languages/Perl
+
+%description -n perl-ExactImage
+ExactImage API for Perl.
+
+%description -n perl-ExactImage -l pl.UTF-8
+API ExactImage dla Perla.
+
+%package -n python-ExactImage
+Summary:	ExactImage API for Python
+Summary(pl.UTF-8):	API ExactImage dla Pythona
+Group:		Development/Languages/Python
+
+%description -n python-ExactImage
+ExactImage API for Python.
+
+%description -n python-ExactImage -l pl.UTF-8
+API ExactImage dla Pythona.
+
 %prep
 %setup -q
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 ./configure \
@@ -87,7 +127,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
+	PERL_INSTALLDIR=%{perl_vendorarch} \
+	PHP_INSTALLDIR=%{_libdir}/php \
+	PYTHON_LIBDIR=%{py_sitedir} \
+	api/lua/libdir=%{_libdir}/lua \
 	Q=
+
+%if %{with python}
+%py_comp $RPM_BUILD_ROOT%{py_sitedir}
+%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
+%py_postclean
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -103,3 +153,23 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/empty-page
 %attr(755,root,root) %{_bindir}/hocr2pdf
 %attr(755,root,root) %{_bindir}/optimize2bw
+
+%if %{with lua}
+%files -n lua-ExactImage
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/lua/ExactImage.so
+%endif
+
+%if %{with perl}
+%files -n perl-ExactImage
+%defattr(644,root,root,755)
+%attr(755,root,root) %{perl_vendorarch}/ExactImage.so
+%{perl_vendorarch}/ExactImage.pm
+%endif
+
+%if %{with python}
+%files -n python-ExactImage
+%defattr(644,root,root,755)
+%attr(755,root,root) %{py_sitedir}/_ExactImage.so
+%{py_sitedir}/ExactImage.py[co]
+%endif

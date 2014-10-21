@@ -1,0 +1,31 @@
+--- exact-image-0.8.9/api/perl/Makefile.orig	2008-12-09 10:42:19.000000000 +0100
++++ exact-image-0.8.9/api/perl/Makefile	2014-10-20 22:07:32.650445291 +0200
+@@ -16,9 +16,10 @@
+ include build/bottom.make
+ X_BUILD_IMPLICIT := $(_X_BUILD_IMPLICIT)
+ 
++PERL_INSTALLDIR=$(libdir)/perl5/site_perl
+ # install
+ all:: $($(X_MODULE)_BINARY)
+ install:: $($(X_MODULE)_BINARY)
+ 	$(Q)echo "INSTALL PERL module $^"
+-	$(Q)mkdir -p $(DESTDIR)$(libdir)/perl5/site_perl/
+-	$(Q)install $^ $(dir $^)/ExactImage.pm $(DESTDIR)$(libdir)/perl5/site_perl/
++	$(Q)mkdir -p $(DESTDIR)$(PERL_INSTALLDIR)
++	$(Q)install $^ $(dir $^)/ExactImage.pm $(DESTDIR)$(PERL_INSTALLDIR)
+--- exact-image-0.8.9/api/php/Makefile.orig	2014-10-20 22:12:43.280432256 +0200
++++ exact-image-0.8.9/api/php/Makefile	2014-10-20 22:12:47.193765425 +0200
+@@ -16,9 +16,11 @@
+ include build/bottom.make
+ X_BUILD_IMPLICIT := $(_X_BUILD_IMPLICIT)
+ 
++PHP_INSTALLDIR = $(libdir)/php
++
+ # install
+ all:: $($(X_MODULE)_BINARY)
+ install:: $($(X_MODULE)_BINARY)
+ 	$(Q)echo "INSTALL PHP module $^"
+-	$(Q)mkdir -p $(DESTDIR)$(libdir)/php/
+-	$(Q)install $^ $(dir $^)/ExactImage.php $(DESTDIR)$(libdir)/php/
++	$(Q)mkdir -p $(DESTDIR)$(PHP_INSTALLDIR)
++	$(Q)install $^ $(dir $^)/ExactImage.php $(DESTDIR)$(PHP_INSTALLDIR)
