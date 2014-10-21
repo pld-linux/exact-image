@@ -9,11 +9,6 @@
 %bcond_without	python	# Python API
 %bcond_with	ruby	# Ruby API [not finished as of 0.8.9]
 
-%ifarch %{x8664}
-%undefine	with_lua
-%undefine	with_perl
-%undefine	with_python
-%endif
 %define		php_name	php%{?php_suffix}
 %include	/usr/lib/rpm/macros.perl
 Summary:	A fast, modern and generic image processing library
@@ -146,7 +141,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	PERL_INSTALLDIR=%{perl_vendorarch} \
-	PHP_INSTALLDIR=%{_libdir}/php \
+	PHP_INSTALLDIR=%{php_extensiondir} \
 	PYTHON_LIBDIR=%{py_sitedir} \
 	api/lua/libdir=%{_libdir}/lua \
 	Q=
