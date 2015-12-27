@@ -15,7 +15,7 @@ Summary:	A fast, modern and generic image processing library
 Summary(pl.UTF-8):	Szybka, nowoczesna i ogólna biblioteka do przetwarzania obrazu
 Name:		exact-image
 Version:	0.8.9
-Release:	7
+Release:	8
 License:	GPL v2
 Group:		Applications/Graphics
 Source0:	http://dl.exactcode.de/oss/exact-image/%{name}-%{version}.tar.bz2
@@ -25,6 +25,7 @@ Patch1:		exactimage_0.8.5-1.patch
 Patch2:		%{name}-giflib.patch
 Patch3:		%{name}-evas.patch
 Patch4:		%{name}-install.patch
+Patch5:		swig.patch
 URL:		http://www.exactcode.de/site/open_source/exactimage/
 BuildRequires:	OpenEXR-devel >= 1.2.0
 BuildRequires:	agg-devel >= 2.3
@@ -117,6 +118,7 @@ API ExactImage dla Pythona.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 ./configure \

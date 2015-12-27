@@ -1,0 +1,11 @@
+--- exact-image-0.8.9/api/api-swig.hh~	2009-03-19 14:00:11.000000000 +0100
++++ exact-image-0.8.9/api/api-swig.hh	2015-12-27 13:53:37.704789844 +0100
+@@ -22,7 +22,7 @@
+ %include "cstring.i"
+ %include "std_string.i"
+ 
+-# manually include it, otherwise SWIG will not source it
++/* manually include it, otherwise SWIG will not source it */
+ %include "config.h"
+ 
+ %{
