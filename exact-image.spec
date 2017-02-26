@@ -7,22 +7,20 @@
 %bcond_without	perl	# Perl API
 %bcond_without	php	# PHP API
 %bcond_without	python	# Python API
-%bcond_with	ruby	# Ruby API [not finished as of 0.8.9]
+%bcond_with	ruby	# Ruby API [still not finished as of 0.9.2]
 
 %define		php_name	php%{?php_suffix}
 %include	/usr/lib/rpm/macros.perl
 Summary:	A fast, modern and generic image processing library
 Summary(pl.UTF-8):	Szybka, nowoczesna i ogólna biblioteka do przetwarzania obrazu
 Name:		exact-image
-Version:	0.8.9
-Release:	10
+Version:	0.9.2
+Release:	1
 License:	GPL v2
 Group:		Applications/Graphics
 Source0:	http://dl.exactcode.de/oss/exact-image/%{name}-%{version}.tar.bz2
-# Source0-md5:	a8694722cd7cc9aa9407950a8440f0cd
+# Source0-md5:	bb9c8be82a4b5126be0224529ea7c4c7
 Patch0:		%{name}-libs.patch
-Patch1:		exactimage_0.8.5-1.patch
-Patch2:		%{name}-giflib.patch
 Patch3:		%{name}-evas.patch
 Patch4:		%{name}-install.patch
 Patch5:		swig.patch
@@ -30,10 +28,10 @@ URL:		http://www.exactcode.de/site/open_source/exactimage/
 BuildRequires:	OpenEXR-devel >= 1.2.0
 BuildRequires:	agg-devel >= 2.3
 %{?with_evas:BuildRequires:	evas-devel >= 0.9.9}
-BuildRequires:	expat-devel
+BuildRequires:	expat-devel >= 1.95
 # pkgconfig(freetype) >= 9.5.0
 BuildRequires:	freetype-devel >= 2.1.6
-%{?with_gif:BuildRequires:	giflib-devel >= 5}
+%{?with_gif:BuildRequires:	giflib-devel >= 5.1}
 BuildRequires:	jasper-devel
 BuildRequires:	lcms-devel >= 1.10
 BuildRequires:	libjpeg-devel
@@ -49,8 +47,9 @@ BuildRequires:	rpm-perlprov
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.219
 %{?with_ruby:BuildRequires:	ruby-devel >= 1.8.5}
+BuildRequires:	sed >= 4.0
 %{?with_perl:BuildRequires:	swig-perl >= 1.3.32}
-%{?with_php:BuildRequires:	swig-php >= 1.3.32}
+%{?with_php:BuildRequires:	swig-php >= 3.0.12}
 %{?with_python:BuildRequires:	swig-python >= 1.3.32}
 BuildRequires:	xorg-lib-libX11-devel >= 1.3
 BuildRequires:	zlib-devel
@@ -114,11 +113,15 @@ API ExactImage dla Pythona.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+
+%if %{with php}
+%if "%(php%{?php_suffix}-config --version)" >= "7.0"
+%{__sed} -i -e 's/-php5/-php7/' api/php/Makefile
+%endif
+%endif
 
 %build
 ./configure \
