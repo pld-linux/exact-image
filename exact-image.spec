@@ -21,6 +21,8 @@ Group:		Applications/Graphics
 Source0:	http://dl.exactcode.de/oss/exact-image/%{name}-%{version}.tar.bz2
 # Source0-md5:	bb9c8be82a4b5126be0224529ea7c4c7
 Patch0:		%{name}-libs.patch
+Patch1:		%{name}-ub.patch
+Patch2:		%{name}-make.patch
 Patch3:		%{name}-evas.patch
 Patch4:		%{name}-install.patch
 Patch5:		swig.patch
@@ -113,6 +115,8 @@ API ExactImage dla Pythona.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
@@ -137,7 +141,7 @@ API ExactImage dla Pythona.
 	CC="%{__cc}" \
 	CXX="%{__cxx}" \
 	CFLAGS="%{rpmcflags}" \
-	CXXFLAGS="%{rpmcflags}" \
+	CXXFLAGS="%{rpmcflags} -std=gnu++98" \
 	Q=
 
 %install
