@@ -5,7 +5,7 @@
 %bcond_without	gif	# GIF support
 %bcond_without	lua	# Lua API
 %bcond_without	perl	# Perl API
-%bcond_without	php	# PHP API
+%bcond_with	php	# PHP API
 %bcond_without	python	# Python API
 %bcond_with	ruby	# Ruby API [still not finished as of 0.9.2]
 
@@ -14,18 +14,17 @@
 Summary:	A fast, modern and generic image processing library
 Summary(pl.UTF-8):	Szybka, nowoczesna i ogólna biblioteka do przetwarzania obrazu
 Name:		exact-image
-Version:	0.9.2
-Release:	3
+Version:	1.0.1
+Release:	1
 License:	GPL v2
 Group:		Applications/Graphics
 Source0:	http://dl.exactcode.de/oss/exact-image/%{name}-%{version}.tar.bz2
-# Source0-md5:	bb9c8be82a4b5126be0224529ea7c4c7
+# Source0-md5:	1f03ef559ca81cf7a1651a72fd9fe98f
 Patch0:		%{name}-libs.patch
 Patch1:		%{name}-ub.patch
 Patch2:		%{name}-make.patch
 Patch3:		%{name}-evas.patch
 Patch4:		%{name}-install.patch
-Patch5:		swig.patch
 URL:		http://www.exactcode.de/site/open_source/exactimage/
 BuildRequires:	OpenEXR-devel >= 1.2.0
 BuildRequires:	agg-devel >= 2.3
@@ -119,7 +118,6 @@ API ExactImage dla Pythona.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 %if %{with php}
 %if "%(php%{?php_suffix}-config --version)" >= "7.0"
