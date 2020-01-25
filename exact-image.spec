@@ -10,7 +10,6 @@
 %bcond_with	ruby	# Ruby API [still not finished as of 0.9.2]
 
 %define		php_name	php%{?php_suffix}
-%include	/usr/lib/rpm/macros.perl
 Summary:	A fast, modern and generic image processing library
 Summary(pl.UTF-8):	Szybka, nowoczesna i ogólna biblioteka do przetwarzania obrazu
 Name:		exact-image
