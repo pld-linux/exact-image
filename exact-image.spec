@@ -13,17 +13,21 @@
 Summary:	A fast, modern and generic image processing library
 Summary(pl.UTF-8):	Szybka, nowoczesna i ogólna biblioteka do przetwarzania obrazu
 Name:		exact-image
-Version:	1.0.1
+Version:	1.2.1
 Release:	1
 License:	GPL v2
 Group:		Applications/Graphics
 Source0:	http://dl.exactcode.de/oss/exact-image/%{name}-%{version}.tar.bz2
-# Source0-md5:	1f03ef559ca81cf7a1651a72fd9fe98f
+# Source0-md5:	f0afb7874ad44a3b0096a9882fa70457
 Patch0:		%{name}-libs.patch
 Patch1:		%{name}-ub.patch
 Patch2:		%{name}-make.patch
 Patch3:		%{name}-evas.patch
 Patch4:		%{name}-install.patch
+Patch5:		%{name}-gif.patch
+Patch6:		%{name}-heif.patch
+Patch7:		%{name}-jasper.patch
+Patch8:		%{name}-jxl.patch
 URL:		http://www.exactcode.de/site/open_source/exactimage/
 BuildRequires:	OpenEXR-devel >= 1.2.0
 BuildRequires:	agg-devel >= 2.3
@@ -34,9 +38,11 @@ BuildRequires:	freetype-devel >= 2.1.6
 %{?with_gif:BuildRequires:	giflib-devel >= 5.1}
 BuildRequires:	jasper-devel
 BuildRequires:	lcms-devel >= 1.10
+BuildRequires:	libheif-devel >= 1.16
 BuildRequires:	libjpeg-devel
+BuildRequires:	libjxl-devel >= 0.6
 BuildRequires:	libpng-devel >= 2:1.5
-BuildRequires:	libstdc++-devel
+BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	libtiff-devel
 %{?with_lua:BuildRequires:	lua51-devel >= 5.1}
 BuildRequires:	perl-devel >= 1:5.8.0
@@ -45,8 +51,8 @@ BuildRequires:	pkgconfig
 %{?with_python:BuildRequires:	python-devel >= 1:2.5.0}
 BuildRequires:	rpm-perlprov
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.219
-%{?with_ruby:BuildRequires:	ruby-devel >= 1.8.5}
+BuildRequires:	rpmbuild(macros) >= 1.745
+%{?with_ruby:BuildRequires:	ruby-devel >= 1.9}
 BuildRequires:	sed >= 4.0
 %{?with_perl:BuildRequires:	swig-perl >= 1.3.32}
 %{?with_php:BuildRequires:	swig-php >= 3.0.12}
@@ -117,6 +123,10 @@ API ExactImage dla Pythona.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
 
 %if %{with php}
 %if "%(php%{?php_suffix}-config --version)" >= "7.0"
@@ -138,7 +148,7 @@ API ExactImage dla Pythona.
 	CC="%{__cc}" \
 	CXX="%{__cxx}" \
 	CFLAGS="%{rpmcflags}" \
-	CXXFLAGS="%{rpmcflags} -std=gnu++98" \
+	CXXFLAGS="%{rpmcxxflags}" \
 	Q=
 
 %install

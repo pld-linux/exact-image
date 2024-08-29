@@ -1,0 +1,11 @@
+--- exact-image-1.2.1/codecs/jpegxl.cc.orig	2021-10-05 14:36:35.000000000 +0200
++++ exact-image-1.2.1/codecs/jpegxl.cc	2024-08-26 18:54:16.735418802 +0200
+@@ -186,7 +186,7 @@ bool JPEGXLCodec::writeImage(std::ostrea
+   }
+   
+   if (JXL_ENC_SUCCESS !=
+-      JxlEncoderAddImageFrame(JxlEncoderOptionsCreate(enc.get(), nullptr),
++      JxlEncoderAddImageFrame(JxlEncoderFrameSettingsCreate(enc.get(), nullptr),
+                               &pixel_format, image.getRawData(),
+                               image.stride() * image.h)) {
+     std::cerr << "JxlEncoderAddImageFrame failed" << std::endl;

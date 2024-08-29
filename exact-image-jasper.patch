@@ -1,0 +1,37 @@
+--- exact-image-1.2.1/codecs/jpeg2000.cc.orig	2017-07-21 16:19:01.000000000 +0200
++++ exact-image-1.2.1/codecs/jpeg2000.cc	2024-08-26 18:11:43.735616525 +0200
+@@ -67,14 +67,14 @@ static jas_stream_t* jas_stream_create()
+   return stream;
+ }
+ 
+-static int cpp_jas_read (jas_stream_obj_t* obj, char* buf, int cnt)
++static ssize_t cpp_jas_read (jas_stream_obj_t* obj, char* buf, size_t cnt)
+ {
+   std::istream* stream = (std::istream*) obj;
+   stream->read (buf, cnt);
+   return cnt;
+ }
+ 
+-static int cpp_jas_write (jas_stream_obj_t* obj, char* buf, int cnt)
++static ssize_t cpp_jas_write (jas_stream_obj_t* obj, const char* buf, size_t cnt)
+ {
+   std::ostream* stream = (std::ostream*) obj;
+   stream->write (buf, cnt);
+@@ -149,7 +149,7 @@ int JPEG2000Codec::readImage (std::istre
+   
+   jas_stream_initbuf (in);
+   
+-  if (!(image = jp2_decode(in, 0))) {
++  if (!(image = jas_image_decode(in, jas_image_strtofmt("jp2"), 0))) {
+     std::cerr << "error: cannot load image data" << std::endl;
+     return false;
+   }
+@@ -324,7 +324,7 @@ bool JPEG2000Codec::writeImage (std::ost
+ 
+   std::stringstream opts;
+   opts << "rate=" << (double)quality / 100;
+-  jp2_encode(image, out, (char*)opts.str().c_str());
++  jas_image_encode(image, out, jas_image_strtofmt("jp2"), (char*)opts.str().c_str());
+   jas_image_destroy (image);
+   jas_stream_close (out);
+   

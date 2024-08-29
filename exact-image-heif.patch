@@ -1,0 +1,11 @@
+--- exact-image-1.2.1/codecs/heif.cc.orig	2024-01-02 21:10:58.000000000 +0100
++++ exact-image-1.2.1/codecs/heif.cc	2024-08-26 17:37:03.913854555 +0200
+@@ -23,7 +23,7 @@
+ #include <sstream>
+ #include <vector>
+ 
+-#include <libheif/heif.h>
++#include <libheif/heif_cxx.h>
+ 
+ #include "heif.hh"
+ 

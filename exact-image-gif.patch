@@ -1,0 +1,21 @@
+--- exact-image-1.2.1/codecs/gif.cc.orig	2020-03-13 17:35:09.000000000 +0100
++++ exact-image-1.2.1/codecs/gif.cc	2024-08-25 21:48:19.378553305 +0200
+@@ -16,6 +16,7 @@
+  */
+ 
+ #include <gif_lib.h>
++#include <gif_util.h>
+ 
+ #include "gif.hh"
+ #include "Colorspace.hh"
+--- exact-image-1.2.1/codecs/Makefile.orig	2024-01-02 00:25:03.000000000 +0100
++++ exact-image-1.2.1/codecs/Makefile	2024-08-28 06:20:58.615944584 +0200
+@@ -31,7 +31,7 @@ NOT_SRCS += png.cc
+ endif
+ 
+ ifeq "$(WITHLIBGIF)" "1"
+-LDFLAGS += -lgif
++LDFLAGS += -lgif -lgifutil
+ else
+ NOT_SRCS += gif.cc
+ endif
