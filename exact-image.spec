@@ -1,7 +1,7 @@
 # TODO: ruby (when ready)
 #
 # Conditional build:
-%bcond_without	evas	# Edisplay support
+%bcond_with	evas	# Edisplay support
 %bcond_without	gif	# GIF support
 %bcond_without	lua	# Lua API
 %bcond_without	perl	# Perl API
